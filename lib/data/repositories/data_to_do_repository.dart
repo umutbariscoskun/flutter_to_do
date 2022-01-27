@@ -1,13 +1,17 @@
 import 'dart:async';
 
+import 'package:squamobi_to_do/data/repositories/data_locale_db_repository.dart';
 import 'package:squamobi_to_do/domain/entities/to_do_card.dart';
+import 'package:squamobi_to_do/domain/repositories/locale_db_repository.dart';
 import 'package:squamobi_to_do/domain/repositories/to_do_repository.dart';
 
 class DataToDoRepository implements ToDoRepository {
   static final _instance = DataToDoRepository._internal();
-  DataToDoRepository._internal();
+  DataToDoRepository._internal()
+      : _localeDBRepository = DataLocalDBRepository();
   factory DataToDoRepository() => _instance;
 
+  final LocaleDbRepository _localeDBRepository;
   List<ToDoCard> _toDos = [
     ToDoCard(
       "",

@@ -75,7 +75,7 @@ class _ToDoDetailContainer extends StatelessWidget {
           ),
           SizedBox(height: 15),
           Text(
-            toDoCard.description,
+            toDoCard.content,
             style: kContentStyleThin(kBlack),
           ),
         ],

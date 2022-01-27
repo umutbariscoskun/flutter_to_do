@@ -55,7 +55,7 @@ class ToDoContainer extends StatelessWidget {
                       Container(
                         width: size.width / 2,
                         child: Text(
-                          toDo.description,
+                          toDo.content,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: kContentStyleThin(kBlack),
