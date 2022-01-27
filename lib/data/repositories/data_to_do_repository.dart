@@ -8,7 +8,7 @@ class DataToDoRepository implements ToDoRepository {
   DataToDoRepository._internal();
   factory DataToDoRepository() => _instance;
 
-  List<ToDoCard> toDos = [
+  List<ToDoCard> _toDos = [
     ToDoCard(
       "",
       "title",
@@ -33,15 +33,27 @@ class DataToDoRepository implements ToDoRepository {
       StreamController.broadcast();
 
   @override
-  Future<void> addToDo(ToDoCard toDoCard) {
-    // TODO: implement addToDo
-    throw UnimplementedError();
+  Future<void> addToDo(ToDoCard toDoCard) async {
+    try {
+      _toDos.add(toDoCard);
+      _streamController.add(_toDos);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      rethrow;
+    }
   }
 
   @override
-  Future<void> removeToDo(String toDoId) {
-    // TODO: implement removeToDo
-    throw UnimplementedError();
+  Future<void> removeToDo(String toDoId) async {
+    try {
+      _toDos.remove(_toDos.firstWhere((toDo) => toDo.id == toDoId));
+      _streamController.add(_toDos);
+    } catch (e, st) {
+      print(e);
+      print(st);
+      rethrow;
+    }
   }
 
   @override
@@ -49,7 +61,7 @@ class DataToDoRepository implements ToDoRepository {
   Stream<List<ToDoCard>> get toDoCards {
     try {
       Future.delayed(Duration.zero).then(
-        (_) => _streamController.add(toDos),
+        (_) => _streamController.add(_toDos),
       );
       return _streamController.stream;
     } catch (e, st) {
