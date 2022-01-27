@@ -17,11 +17,9 @@ class ToDoCard {
   }
 
   ToDoCard.fromJson(Map<String, dynamic> map) {
-    id = map[''];
-    title = map[''];
-
-    content = map[''];
-
-    imageUrl = map[''];
+    id = map['id'];
+    title = map['title'];
+    content = map['content'];
+    imageUrl = map['imageUrl'];
   }
 }

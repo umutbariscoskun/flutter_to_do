@@ -28,9 +28,7 @@ class HomeController extends Controller {
 
     _presenter.getToDoCardsOnError = (e) {};
 
-    _presenter.removeToDoCardOnComplete = () {
-      print("here");
-    };
+    _presenter.removeToDoCardOnComplete = () {};
 
     _presenter.removeToDoCardOnError = (e) {
       print(e);
@@ -47,7 +45,6 @@ class HomeController extends Controller {
   }
 
   void removeToDo(String toDoId) {
-    print("here2");
     _presenter.removeToDo(toDoId);
     refreshUI();
   }

@@ -12,26 +12,7 @@ class DataToDoRepository implements ToDoRepository {
   factory DataToDoRepository() => _instance;
 
   final LocaleDbRepository _localeDBRepository;
-  List<ToDoCard> _toDos = [
-    ToDoCard(
-      "",
-      "title",
-      "description",
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/200332548.jpg?k=81c26152eed74143cfb59626b17a177124efa259ee0138673ffdc50b1d66c498&o=&hp=1",
-    ),
-    ToDoCard(
-      "",
-      "title",
-      "description",
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/200332548.jpg?k=81c26152eed74143cfb59626b17a177124efa259ee0138673ffdc50b1d66c498&o=&hp=1",
-    ),
-    ToDoCard(
-      "",
-      "title",
-      "description",
-      "https://cf.bstatic.com/xdata/images/hotel/max1024x768/200332548.jpg?k=81c26152eed74143cfb59626b17a177124efa259ee0138673ffdc50b1d66c498&o=&hp=1",
-    ),
-  ];
+  List<ToDoCard> _toDos = [];
 
   StreamController<List<ToDoCard>> _streamController =
       StreamController.broadcast();
@@ -40,6 +21,8 @@ class DataToDoRepository implements ToDoRepository {
   Future<void> addToDo(ToDoCard toDoCard) async {
     try {
       _toDos.add(toDoCard);
+
+      await _localeDBRepository.setDatabase("toDo", toDoCard.toJson());
       _streamController.add(_toDos);
     } catch (e, st) {
       print(e);
@@ -51,8 +34,12 @@ class DataToDoRepository implements ToDoRepository {
   @override
   Future<void> removeToDo(String toDoId) async {
     try {
-      print(toDoId);
       _toDos.remove(_toDos.firstWhere((toDo) => toDo.id == toDoId));
+
+      await _localeDBRepository.deleteRowFromDatabase(
+        "toDo",
+        toDoId,
+      );
       _streamController.add(_toDos);
     } catch (e, st) {
       print(e);
@@ -65,10 +52,22 @@ class DataToDoRepository implements ToDoRepository {
   // TODO: implement toDoCards
   Stream<List<ToDoCard>> get toDoCards {
     try {
+      _initToDos();
+      return _streamController.stream;
+    } catch (e, st) {
+      print(e);
+      print(st);
+      rethrow;
+    }
+  }
+
+  void _initToDos() async {
+    try {
+      final result = await _localeDBRepository.getDatabase("toDo");
+      _toDos = result.map((json) => ToDoCard.fromJson(json)).toList();
       Future.delayed(Duration.zero).then(
         (_) => _streamController.add(_toDos),
       );
-      return _streamController.stream;
     } catch (e, st) {
       print(e);
       print(st);

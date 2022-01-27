@@ -35,25 +35,17 @@ class DataLocalDBRepository implements LocaleDbRepository {
   }
 
   Future _createDB(Database db, int version) async {
-    final id = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final type = 'TEXT NOT NULL';
-    final userTypeId = 'INTEGER NOT NULL';
-
-    String name = 'TEXT NOT NULL';
-    String value = 'TEXT NOT NULL';
+    final id = 'TEXT PRIMARY KEY';
+    final title = 'TEXT NOT NULL';
+    String content = 'TEXT NOT NULL';
+    String imageUrl = 'TEXT NOT NULL';
 
     await db.execute('''
-CREATE TABLE userType ( 
+CREATE TABLE toDo ( 
   id $id, 
-  type $type,
-  user_type_id $userTypeId
-  )
-''');
-    await db.execute('''
-CREATE TABLE language ( 
-  Id $id, 
-  Name $name,
-  Value $value
+  title $title,
+  content $content,
+  imageUrl $imageUrl
   )
 ''');
   }
@@ -89,7 +81,7 @@ CREATE TABLE language (
   }
 
   @override
-  Future<void> deleteRowFromDatabase(String tableName, int id) async {
+  Future<void> deleteRowFromDatabase(String tableName, String id) async {
     try {
       final db = await database;
       await db.delete(
