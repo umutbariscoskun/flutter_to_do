@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
+import 'package:squamobi_to_do/app/constants.dart';
 import 'package:squamobi_to_do/app/pages/home/home_controller.dart';
 import 'package:squamobi_to_do/app/pages/to_do_detail/to_do_detail_view.dart';
 import 'package:squamobi_to_do/app/widgets/default_app_bar.dart';
@@ -10,6 +11,7 @@ import 'package:squamobi_to_do/app/widgets/default_dialog.dart';
 import 'package:squamobi_to_do/app/widgets/default_progress_indicator.dart';
 import 'package:squamobi_to_do/app/widgets/to_do_container.dart';
 import 'package:squamobi_to_do/data/repositories/data_to_do_repository.dart';
+import 'package:squamobi_to_do/domain/entities/to_do_card.dart';
 
 class HomeView extends View {
   @override
@@ -65,10 +67,7 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
                                     i++)
                                   ToDoContainer(
                                     toDo: controller.toDos![i],
-                                    removeToDo: () {
-                                      controller
-                                          .removeToDo(controller.toDos![i].id);
-                                    },
+                                    removeToDo: controller.removeToDo,
                                     onPressed: () {
                                       Navigator.push(
                                         context,

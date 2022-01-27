@@ -4,7 +4,7 @@ import 'package:squamobi_to_do/domain/entities/to_do_card.dart';
 
 class ToDoContainer extends StatelessWidget {
   final ToDoCard toDo;
-  final Function() removeToDo;
+  final Function(String toDoId) removeToDo;
   final Function() onPressed;
 
   ToDoContainer({
@@ -81,18 +81,6 @@ class ToDoContainer extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
-                      Container(
-                        child: GestureDetector(
-                          onTap: () {
-                            removeToDo;
-                          },
-                          child: Icon(
-                            Icons.delete,
-                            size: 32,
-                          ),
-                        ),
-                      )
                     ],
                   )
                 ],
@@ -112,6 +100,23 @@ class ToDoContainer extends StatelessWidget {
                 onPressed: onPressed,
               ),
             ),
+            Container(
+              width: size.width - 40,
+              height: 170,
+              padding: EdgeInsets.only(bottom: 12, right: 15),
+              alignment: Alignment.bottomRight,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  print("ontap");
+                  removeToDo(toDo.id);
+                },
+                child: Icon(
+                  Icons.delete,
+                  size: 32,
+                ),
+              ),
+            )
           ],
         ),
         SizedBox(

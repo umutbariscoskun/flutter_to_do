@@ -47,6 +47,7 @@ class DataToDoRepository implements ToDoRepository {
   @override
   Future<void> removeToDo(String toDoId) async {
     try {
+      print(toDoId);
       _toDos.remove(_toDos.firstWhere((toDo) => toDo.id == toDoId));
       _streamController.add(_toDos);
     } catch (e, st) {
