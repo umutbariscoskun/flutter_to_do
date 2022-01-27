@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:squamobi_to_do/app/constants.dart';
 import 'package:squamobi_to_do/app/texts.dart';
+import 'package:squamobi_to_do/domain/entities/to_do_card.dart';
 
 class DefaultDialog extends StatefulWidget {
-  final Function() addToDo;
+  final Function(ToDoCard toDo) addToDo;
 
   DefaultDialog(this.addToDo);
 
@@ -12,11 +13,11 @@ class DefaultDialog extends StatefulWidget {
 }
 
 class _DefaultDialogState extends State<DefaultDialog> {
+  String? title;
+  String? description;
+  String? imageUrl;
   @override
   Widget build(BuildContext context) {
-    String title;
-    String description;
-    String imageUrl;
     Size size = MediaQuery.of(context).size;
     return Dialog(
       child: Container(
@@ -72,7 +73,15 @@ class _DefaultDialogState extends State<DefaultDialog> {
               alignment: Alignment.bottomRight,
               child: GestureDetector(
                 onTap: () {
-                  //  widget.addToDo();
+                  widget.addToDo(
+                    ToDoCard(
+                      DateTime.now().millisecondsSinceEpoch.toString(),
+                      title!,
+                      description!,
+                      imageUrl!,
+                    ),
+                  );
+                  Navigator.pop(context);
                 },
                 child: Container(
                   decoration: BoxDecoration(

@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
-import 'package:squamobi_to_do/app/constants.dart';
 import 'package:squamobi_to_do/app/pages/home/home_controller.dart';
 import 'package:squamobi_to_do/app/pages/to_do_detail/to_do_detail_view.dart';
 import 'package:squamobi_to_do/app/widgets/default_app_bar.dart';
@@ -39,7 +38,7 @@ class _HomeViewState extends ViewState<HomeView, HomeController> {
               await showDialog(
                   context: context,
                   builder: (context) {
-                    return DefaultDialog(() {});
+                    return DefaultDialog(controller.addToDo);
                   });
             },
           );
