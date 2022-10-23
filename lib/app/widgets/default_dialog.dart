@@ -30,7 +30,7 @@ class _DefaultDialogState extends State<DefaultDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              SquamobiTexts.addToDo,
+              Texts.addToDo,
               style: kTitleStyleBold(kBlack),
             ),
             TextFormField(
@@ -100,7 +100,7 @@ class _DefaultDialogState extends State<DefaultDialog> {
                   height: 56,
                   child: Center(
                     child: Text(
-                      SquamobiTexts.add,
+                      Texts.add,
                       textAlign: TextAlign.center,
                       style: kTitleStyle(kBlack),
                     ),

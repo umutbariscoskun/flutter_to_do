@@ -34,7 +34,7 @@ class _ToDoDetailViewState
             child: Column(
               children: [
                 DefaultAppBar(
-                  text: SquamobiTexts.squamobi,
+                  text: Texts.squamobi,
                   isPopAvailable: true,
                 ),
                 SizedBox(height: 20),
